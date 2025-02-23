@@ -435,12 +435,17 @@ PrefabInstance:
     - target: {fileID: 2093336904398829103, guid: 8c83a9884ee959644af82accc8d17699,
         type: 3}
       propertyPath: hideDiscIndices.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2093336904398829103, guid: 8c83a9884ee959644af82accc8d17699,
         type: 3}
       propertyPath: hideDiscIndices.Array.data[0]
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2093336904398829103, guid: 8c83a9884ee959644af82accc8d17699,
+        type: 3}
+      propertyPath: hideDiscIndices.Array.data[1]
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2093336904398829103, guid: 8c83a9884ee959644af82accc8d17699,
         type: 3}
@@ -594,7 +599,7 @@ PrefabInstance:
     - target: {fileID: 2093336904398829103, guid: 8c83a9884ee959644af82accc8d17699,
         type: 3}
       propertyPath: obstacleDiscIndices.Array.size
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2093336904398829103, guid: 8c83a9884ee959644af82accc8d17699,
         type: 3}
@@ -620,6 +625,11 @@ PrefabInstance:
         type: 3}
       propertyPath: obstacleDiscIndices.Array.data[4]
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2093336904398829103, guid: 8c83a9884ee959644af82accc8d17699,
+        type: 3}
+      propertyPath: obstacleDiscIndices.Array.data[5]
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5181729591950921218, guid: 8c83a9884ee959644af82accc8d17699,
         type: 3}
@@ -1243,12 +1253,17 @@ PrefabInstance:
     - target: {fileID: 2093336904398829103, guid: 8c83a9884ee959644af82accc8d17699,
         type: 3}
       propertyPath: hideDiscIndices.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2093336904398829103, guid: 8c83a9884ee959644af82accc8d17699,
         type: 3}
       propertyPath: hideDiscIndices.Array.data[0]
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2093336904398829103, guid: 8c83a9884ee959644af82accc8d17699,
+        type: 3}
+      propertyPath: hideDiscIndices.Array.data[1]
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2093336904398829103, guid: 8c83a9884ee959644af82accc8d17699,
         type: 3}
@@ -1795,12 +1810,17 @@ PrefabInstance:
     - target: {fileID: 2093336904398829103, guid: 8c83a9884ee959644af82accc8d17699,
         type: 3}
       propertyPath: hideDiscIndices.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2093336904398829103, guid: 8c83a9884ee959644af82accc8d17699,
         type: 3}
       propertyPath: hideDiscIndices.Array.data[0]
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2093336904398829103, guid: 8c83a9884ee959644af82accc8d17699,
+        type: 3}
+      propertyPath: hideDiscIndices.Array.data[1]
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2093336904398829103, guid: 8c83a9884ee959644af82accc8d17699,
         type: 3}
