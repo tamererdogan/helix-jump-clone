@@ -3,9 +3,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField]
-    private float jumpForce;
     private bool _isFireMode = false;
+    [SerializeField] private float jumpForce;
     private Rigidbody _rigidbody;
 
     void Awake()
