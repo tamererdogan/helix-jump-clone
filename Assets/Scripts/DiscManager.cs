@@ -14,13 +14,24 @@ public class DiscManager : MonoBehaviour
     {
         for (int i = 0; i < 12; i++)
         {
-            if (hideDiscIndices.Contains(i)) continue;
             var discObject = Instantiate(discModel, transform);
+
             discObject.transform.localPosition = new Vector3(0, 0, 0);
             discObject.transform.Rotate(Vector3.up, 30 * i);
-            discObject.transform.GetComponent<MeshRenderer>().material.color =  isFinishDisc ? new Color(0,0,0) :
-                obstacleDiscIndices.Contains(i) ? obstacleColor : discColor;
-            discObject.tag = isFinishDisc ? "FinishDisc" : obstacleDiscIndices.Contains(i) ? "ObstacleDisc" : "Disc";
+            
+            var meshRenderer = discObject.GetComponent<MeshRenderer>();
+            if (hideDiscIndices.Contains(i))
+            {
+                discObject.tag = "HiddenDisc";
+                discObject.GetComponent<MeshCollider>().isTrigger = true;
+                meshRenderer.enabled = false;
+            }
+            else
+            {
+                meshRenderer.material.color =  isFinishDisc ? new Color(0,0,0) :
+                    obstacleDiscIndices.Contains(i) ? obstacleColor : discColor;
+                discObject.tag = isFinishDisc ? "FinishDisc" : obstacleDiscIndices.Contains(i) ? "ObstacleDisc" : "Disc";
+            }
         }
     }
 }

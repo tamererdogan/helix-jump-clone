@@ -21,10 +21,6 @@ public class PlayerController : MonoBehaviour
                 _rigidbody.velocity = Vector3.zero;
                 _rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
                 break;
-            case "HiddenDisc":
-                DestroyDisc(other.gameObject);
-                Debug.Log("Puan arttı");
-                break;
             case "FinishDisc":
                 Debug.Log("Oyun bitti panelini göster");
                 break;
@@ -42,9 +38,15 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (!other.gameObject.CompareTag("HiddenDisc")) return;
+        DestroyDisc(other.gameObject);
+        Debug.Log("Puan arttı");
+    }
+
     private void DestroyDisc(GameObject sliceObject)
     {
-        Debug.Log("Disk yokedildi.");
-        //sliceObject'in üstündeki diski uçur
+        sliceObject.transform.parent.gameObject.SetActive(false);
     }
 }
