@@ -22,7 +22,7 @@ public class DiscManager : MonoBehaviour
             var meshRenderer = discObject.GetComponent<MeshRenderer>();
             if (hideDiscIndices.Contains(i))
             {
-                discObject.tag = "HiddenDisc";
+                discObject.tag = "Hidden";
                 discObject.GetComponent<MeshCollider>().isTrigger = true;
                 meshRenderer.enabled = false;
             }
@@ -30,7 +30,7 @@ public class DiscManager : MonoBehaviour
             {
                 meshRenderer.material.color =  isFinishDisc ? new Color(0,0,0) :
                     obstacleDiscIndices.Contains(i) ? obstacleColor : discColor;
-                discObject.tag = isFinishDisc ? "FinishDisc" : obstacleDiscIndices.Contains(i) ? "ObstacleDisc" : "Disc";
+                discObject.tag = isFinishDisc ? "Finish" : obstacleDiscIndices.Contains(i) ? "Obstacle" : "Normal";
             }
         }
     }
