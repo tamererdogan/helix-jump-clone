@@ -3,8 +3,9 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private bool _isFireMode = false;
     [SerializeField] private float jumpForce;
+    private int _passedDiscCount;
+    private int _score;
     private Rigidbody _rigidbody;
 
     void Awake()
@@ -19,19 +20,23 @@ public class PlayerController : MonoBehaviour
             case "Disc":
                 _rigidbody.velocity = Vector3.zero;
                 _rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+                _passedDiscCount = 0;
                 break;
             case "FinishDisc":
-                Debug.Log("Oyun bitti panelini göster");
+                Debug.Log("Oyun bitti puanınız: " + _score);
                 break;
             case "ObstacleDisc":
-                if (_isFireMode)
+                if (_passedDiscCount > 2)
                 {
                     DestroyDisc(other.gameObject);
-                    _isFireMode = false;
+                    _passedDiscCount = 0;
+                    _score += 10;
+                    Debug.Log("Fire modu sayesinde kurtuldun!");
                 }
                 else
                 {
-                    Debug.Log("Replay panelini göster");
+                    Time.timeScale = 0f;
+                    Debug.Log("Replay: " + _score);
                 }
                 break;
         }
@@ -39,9 +44,12 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.gameObject.CompareTag("HiddenDisc")) return;
-        DestroyDisc(other.gameObject);
-        Debug.Log("Puan arttı");
+        if (other.gameObject.CompareTag("HiddenDisc"))
+        {
+            DestroyDisc(other.gameObject);
+            _passedDiscCount++;
+            _score += 10;
+        }
     }
 
     private void DestroyDisc(GameObject sliceObject)
