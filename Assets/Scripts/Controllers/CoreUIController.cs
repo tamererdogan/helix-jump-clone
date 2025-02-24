@@ -12,7 +12,7 @@ namespace Controllers
         public void OpenPanel(UIPanels uiPanel, byte layerIndex)
         {
             ClosePanel(layerIndex);
-            Instantiate(Resources.Load<GameObject>($"Screens/{uiPanel}"), layers[layerIndex]);
+            Instantiate(Resources.Load<GameObject>($"Prefabs/UI/{uiPanel}"), layers[layerIndex]);
         }
 
         public void ClosePanel(byte layerIndex)

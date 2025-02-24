@@ -1,18 +1,22 @@
-﻿using Events;
+﻿using Controllers;
+using Events;
 using UnityEngine;
 
 namespace Managers
 {
+    [RequireComponent(typeof(PlatformController))]
     public class PlatformManager : MonoBehaviour
     {
-        [SerializeField]
-        private GameObject levelHolder;
-        [SerializeField]
-        private float rotateSpeed;
+        private PlatformController _platformController;
+        
+        private void Awake()
+        {
+            _platformController = GetComponent<PlatformController>();
+        }
 
         private void OnEnable()
         {
-            InputManager.OnInputTaken += RotatePlatform;
+            InputManager.OnInputTaken += _platformController.RotatePlatform;
             PlayerHitEvent.OnPlayerTrigger += OnPlayerTrigger;
             PlayerManager.OnPlayerCollisionObstacle += OnPlayerCollisionObstacle;
         }
@@ -20,30 +24,20 @@ namespace Managers
         private void OnPlayerCollisionObstacle(Collision other, bool isSafeMode)
         {
             if (isSafeMode)
-                HideDisc(other.gameObject.transform.parent);
-        }
-
-        private void RotatePlatform(float value)
-        {
-            levelHolder.transform.Rotate(Vector3.up, -value * rotateSpeed * Time.deltaTime);
+                _platformController.HideDisc(other.gameObject.transform.parent);
         }
 
         private void OnPlayerTrigger(Collider other)
         {
             if (other.gameObject.CompareTag("Hidden"))
-                HideDisc(other.gameObject.transform.parent);
+                _platformController.HideDisc(other.gameObject.transform.parent);
         }
 
         private void OnDisable()
         {
-            InputManager.OnInputTaken -= RotatePlatform;
+            InputManager.OnInputTaken -= _platformController.RotatePlatform;
             PlayerHitEvent.OnPlayerTrigger -= OnPlayerTrigger;
             PlayerManager.OnPlayerCollisionObstacle -= OnPlayerCollisionObstacle;
-        }
-
-        private void HideDisc(Transform disc)
-        {
-            disc.gameObject.SetActive(false);
         }
     }
 }
