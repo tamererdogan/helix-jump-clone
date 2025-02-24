@@ -6,14 +6,14 @@ namespace Managers
     public class PlatformManager : MonoBehaviour
     {
         [SerializeField]
-        private GameObject platformObject;
+        private GameObject levelHolder;
         [SerializeField]
         private float rotateSpeed;
 
         private void OnEnable()
         {
             InputManager.OnInputTaken += RotatePlatform;
-            PlayerHitEvent.OnBallTrigger += OnBallTrigger;
+            PlayerHitEvent.OnPlayerTrigger += OnPlayerTrigger;
             PlayerManager.OnPlayerCollisionObstacle += OnPlayerCollisionObstacle;
         }
 
@@ -25,10 +25,10 @@ namespace Managers
 
         private void RotatePlatform(float value)
         {
-            platformObject.transform.Rotate(Vector3.up, -value * rotateSpeed * Time.deltaTime);
+            levelHolder.transform.Rotate(Vector3.up, -value * rotateSpeed * Time.deltaTime);
         }
 
-        private void OnBallTrigger(Collider other)
+        private void OnPlayerTrigger(Collider other)
         {
             if (other.gameObject.CompareTag("Hidden"))
                 HideDisc(other.gameObject.transform.parent);
@@ -37,7 +37,7 @@ namespace Managers
         private void OnDisable()
         {
             InputManager.OnInputTaken -= RotatePlatform;
-            PlayerHitEvent.OnBallTrigger -= OnBallTrigger;
+            PlayerHitEvent.OnPlayerTrigger -= OnPlayerTrigger;
             PlayerManager.OnPlayerCollisionObstacle -= OnPlayerCollisionObstacle;
         }
 

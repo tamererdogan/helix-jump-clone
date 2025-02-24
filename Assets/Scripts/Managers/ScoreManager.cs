@@ -12,7 +12,7 @@ namespace Managers
 
         private void OnEnable()
         {
-            PlayerHitEvent.OnBallTrigger += OnBallTrigger;
+            PlayerHitEvent.OnPlayerTrigger += OnPlayerTrigger;
             PlayerManager.OnPlayerCollisionObstacle += OnPlayerCollisionObstacle;
         }
 
@@ -21,14 +21,14 @@ namespace Managers
             if (isSafeMode) IncScore();
         }
 
-        private void OnBallTrigger(Collider other)
+        private void OnPlayerTrigger(Collider other)
         {
             IncScore();
         }
 
         private void OnDisable()
         {
-            PlayerHitEvent.OnBallTrigger -= OnBallTrigger;
+            PlayerHitEvent.OnPlayerTrigger -= OnPlayerTrigger;
         }
 
         private void IncScore()

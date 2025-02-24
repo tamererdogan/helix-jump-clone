@@ -21,11 +21,11 @@ namespace Managers
 
         private void OnEnable()
         {
-            PlayerHitEvent.OnBallCollision += OnBallCollision;
-            PlayerHitEvent.OnBallTrigger += OnBallTrigger;
+            PlayerHitEvent.OnPlayerCollision += OnPlayerCollision;
+            PlayerHitEvent.OnPlayerTrigger += OnPlayerTrigger;
         }
 
-        private void OnBallCollision(Collision other)
+        private void OnPlayerCollision(Collision other)
         {
             switch (other.gameObject.tag)
             {
@@ -44,7 +44,7 @@ namespace Managers
             }
         }
 
-        private void OnBallTrigger(Collider other)
+        private void OnPlayerTrigger(Collider other)
         {
             if (other.gameObject.CompareTag("Hidden"))
                 _passedDiscCount++;
@@ -52,8 +52,8 @@ namespace Managers
 
         private void OnDisable()
         {
-            PlayerHitEvent.OnBallCollision -= OnBallCollision;
-            PlayerHitEvent.OnBallTrigger -= OnBallTrigger;
+            PlayerHitEvent.OnPlayerCollision -= OnPlayerCollision;
+            PlayerHitEvent.OnPlayerTrigger -= OnPlayerTrigger;
         }
     }
 }
