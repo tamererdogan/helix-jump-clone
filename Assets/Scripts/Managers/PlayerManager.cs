@@ -27,7 +27,9 @@ namespace Managers
 
         private void OnPlayerCollision(Transform player, Collision other)
         {
-            switch (other.gameObject.tag)
+            var isHit = Physics.Raycast(player.position, -transform.up * 0.2f, out var hitInfo);
+            var compareTag = isHit ? hitInfo.transform.tag : other.gameObject.tag;
+            switch (compareTag)
             {
                 case "Normal":
                     _playerController.Jump();
