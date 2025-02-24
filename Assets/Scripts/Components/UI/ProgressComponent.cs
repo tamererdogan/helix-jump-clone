@@ -35,7 +35,7 @@ namespace Components.UI
             OnUpdateRequested.Invoke();
         }
 
-        private void OnPlayerTrigger(Collider other)
+        private void OnPlayerTrigger(Transform player, Collider other)
         {
             if (other.gameObject.CompareTag("Hidden"))
                 slider.value++;

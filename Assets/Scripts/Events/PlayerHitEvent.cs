@@ -5,17 +5,17 @@ namespace Events
 {
     public class PlayerHitEvent : MonoBehaviour
     {
-        public static UnityAction<Collision> OnPlayerCollision = delegate { };
-        public static UnityAction<Collider> OnPlayerTrigger = delegate { };
+        public static UnityAction<Transform, Collision> OnPlayerCollision = delegate { };
+        public static UnityAction<Transform, Collider> OnPlayerTrigger = delegate { };
 
         private void OnCollisionEnter(Collision other)
         {
-            OnPlayerCollision?.Invoke(other);
+            OnPlayerCollision?.Invoke(transform, other);
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            OnPlayerTrigger?.Invoke(other);
+            OnPlayerTrigger?.Invoke(transform, other);
         }
     }
 }

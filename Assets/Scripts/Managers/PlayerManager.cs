@@ -25,7 +25,7 @@ namespace Managers
             PlayerHitEvent.OnPlayerTrigger += OnPlayerTrigger;
         }
 
-        private void OnPlayerCollision(Collision other)
+        private void OnPlayerCollision(Transform player, Collision other)
         {
             switch (other.gameObject.tag)
             {
@@ -44,7 +44,7 @@ namespace Managers
             }
         }
 
-        private void OnPlayerTrigger(Collider other)
+        private void OnPlayerTrigger(Transform player, Collider other)
         {
             if (other.gameObject.CompareTag("Hidden"))
                 _passedDiscCount++;

@@ -42,7 +42,7 @@ namespace Managers
             if (isSafeMode) IncScore();
         }
 
-        private void OnPlayerTrigger(Collider other)
+        private void OnPlayerTrigger(Transform player, Collider other)
         {
             IncScore();
         }

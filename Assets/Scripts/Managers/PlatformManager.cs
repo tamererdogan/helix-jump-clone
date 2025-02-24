@@ -27,7 +27,7 @@ namespace Managers
                 _platformController.HideDisc(other.gameObject.transform.parent);
         }
 
-        private void OnPlayerTrigger(Collider other)
+        private void OnPlayerTrigger(Transform player, Collider other)
         {
             if (other.gameObject.CompareTag("Hidden"))
                 _platformController.HideDisc(other.gameObject.transform.parent);
