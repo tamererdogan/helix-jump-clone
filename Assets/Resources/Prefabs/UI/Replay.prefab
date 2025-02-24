@@ -279,6 +279,7 @@ GameObject:
   - component: {fileID: 5786547886942888755}
   - component: {fileID: 3998258011634158730}
   - component: {fileID: 7509545735952690945}
+  - component: {fileID: 372706528592797849}
   m_Layer: 5
   m_Name: Replay
   m_TagString: Untagged
@@ -345,6 +346,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &372706528592797849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2617666859107460259}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b26fe03f7574f959765fc61f5e39e9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreText: {fileID: 6221308569142281517}
 --- !u!1 &8219113502498549566
 GameObject:
   m_ObjectHideFlags: 0

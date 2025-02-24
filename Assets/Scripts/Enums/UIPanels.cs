@@ -2,6 +2,6 @@
 {
     public enum UIPanels
     {
-        TapToPlay, Replay, NextLevel
+        TapToPlay, Replay, NextLevel, Progress
     }
 }

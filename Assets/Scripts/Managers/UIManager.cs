@@ -16,6 +16,7 @@ namespace Managers
 
         private void Start()
         {
+            _coreUIController.OpenPanel(UIPanels.Progress, 0);
             _coreUIController.OpenPanel(UIPanels.TapToPlay, 2);
         }
 

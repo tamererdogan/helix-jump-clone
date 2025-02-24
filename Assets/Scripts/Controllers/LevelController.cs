@@ -11,14 +11,6 @@ namespace Controllers
         private GameObject player;
         [SerializeField]
         private Transform levelHolder;
-        private int _levelIndex;
-        private List<Level> _levels;
-
-        private void Start()
-        {
-            LoadLevelData();
-            CreateCurrentLevel();
-        }
 
         private void ResetLevel()
         {
@@ -26,19 +18,10 @@ namespace Controllers
             foreach (Transform child in levelHolder.transform)
                 Destroy(child.gameObject);
         }
-        
-        public void NextLevel()
-        {
-            _levelIndex++;
-            CreateCurrentLevel();
-        }
 
-        public void CreateCurrentLevel()
+        public void CreateLevel(Level currentLevel)
         {
             ResetLevel();
-
-            var loadLevelIndex = GetLoadLevelIndex();
-            var currentLevel = _levels[loadLevelIndex];
 
             ColorUtility.TryParseHtmlString(currentLevel.platformColor, out var platformColor);
             ColorUtility.TryParseHtmlString(currentLevel.normalColor, out var normalColor);
@@ -52,6 +35,8 @@ namespace Controllers
             cylinder.transform.position = new Vector3(0, 5, 0);
             cylinder.transform.localScale = new Vector3(0.7f, 5, 0.7f);
             cylinder.GetComponent<MeshRenderer>().material.color = platformColor;
+
+            currentLevel.indices = currentLevel.indices.Reverse().ToArray();
 
             CreateFinishDisc(playerColor);
             for (int i = 0; i < currentLevel.indices.Length; i++)
@@ -102,16 +87,11 @@ namespace Controllers
                 meshRenderer.material.color = color;
             }
         }
-        
-        private int GetLoadLevelIndex()
-        {
-            return _levelIndex > _levels.Count - 1 ? _levelIndex % _levels.Count : _levelIndex;
-        }
 
-        private void LoadLevelData()
+        public List<Level> LoadLevelData()
         {
             var levelDataJson = Resources.Load<TextAsset>("Data/LevelData").text;
-            _levels = JsonUtility.FromJson<LevelData>(levelDataJson).levels;
+            return JsonUtility.FromJson<LevelData>(levelDataJson).levels;
         }
     }
 }
