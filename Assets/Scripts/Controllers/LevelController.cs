@@ -53,7 +53,7 @@ namespace Controllers
             for (int i = 0; i < 12; i++)
             {
                 var sliceObject = Instantiate(sliceModel, disc.transform);
-                sliceObject.transform.localPosition = new Vector3(0, 0, 0);
+                sliceObject.transform.localPosition = Vector3.zero;
                 sliceObject.transform.Rotate(Vector3.up, 30 * i);
 
                 var meshRenderer = sliceObject.GetComponent<MeshRenderer>();
@@ -80,7 +80,7 @@ namespace Controllers
             for (int i = 0; i < 12; i++)
             {
                 var sliceObject = Instantiate(sliceModel, disc.transform);
-                sliceObject.transform.localPosition = new Vector3(0, 0, 0);
+                sliceObject.transform.localPosition = Vector3.zero;
                 sliceObject.transform.Rotate(Vector3.up, 30 * i);
                 var meshRenderer = sliceObject.GetComponent<MeshRenderer>();
                 sliceObject.tag = "Finish";
