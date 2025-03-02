@@ -12,6 +12,11 @@ namespace Managers
         private int _score;
         private int _prevScore;
 
+        private void Awake()
+        {
+            _score = _prevScore = PlayerPrefs.GetInt("score", 0);
+        }
+
         private void OnEnable()
         {
             PlayerHitEvent.OnPlayerTrigger += OnPlayerTrigger;
@@ -30,6 +35,7 @@ namespace Managers
         private void OnLevelChanged(int levelIndex)
         {
             _prevScore = _score;
+            PlayerPrefs.SetInt("score", _score);
         }
 
         private void NotifyScoreUpdated()

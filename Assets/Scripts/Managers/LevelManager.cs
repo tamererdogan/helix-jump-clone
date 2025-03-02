@@ -20,13 +20,14 @@ namespace Managers
 
         private void Awake()
         {
+            _levelIndex = PlayerPrefs.GetInt("level", 0);
             _levelController = GetComponent<LevelController>();
         }
 
         private void Start()
         {
             _levels = _levelController.LoadLevelData();
-            _levelController.CreateLevel(_levels[_levelIndex]);
+            _levelController.CreateLevel(_levels[GetLoadLevelIndex()]);
         }
 
         private void OnEnable()
@@ -52,6 +53,7 @@ namespace Managers
         private void NextLevel()
         {
             _levelIndex++;
+            PlayerPrefs.SetInt("level", _levelIndex);
             var loadLevelIndex = GetLoadLevelIndex();
             _levelController.CreateLevel(_levels[loadLevelIndex]);
             OnLevelChanged.Invoke(_levelIndex);
