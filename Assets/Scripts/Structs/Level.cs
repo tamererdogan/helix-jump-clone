@@ -9,6 +9,8 @@ namespace Structs
         public string playerColor;
         public string normalColor;
         public string obstacleColor;
+        public int levelMultiplier;
+        public int safeModeMultiplier;
         public LevelIndices[] indices;
     }
 }

@@ -5,6 +5,8 @@
             "playerColor": "#FF583D",
             "normalColor": "#76325F",
             "obstacleColor": "#C23861",
+            "levelMultiplier": 1,
+            "safeModeMultiplier": 2,
             "indices": [
                 {
                     "hiddenDiscIndices": [
@@ -130,6 +132,8 @@
             "playerColor": "#6d5ed8",
             "normalColor": "#7caf0c",
             "obstacleColor": "#ddb91b",
+            "levelMultiplier": 2,
+            "safeModeMultiplier": 3,
             "indices": [
                 {
                     "hiddenDiscIndices": [
@@ -255,6 +259,8 @@
             "playerColor": "#f2f4fa",
             "normalColor": "#b87048",
             "obstacleColor": "#eb5130",
+            "levelMultiplier": 3,
+            "safeModeMultiplier": 4,
             "indices": [
                 {
                     "hiddenDiscIndices": [

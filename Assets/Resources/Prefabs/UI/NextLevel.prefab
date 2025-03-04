@@ -279,7 +279,7 @@ GameObject:
   - component: {fileID: 183389694161463740}
   - component: {fileID: 6834746889063623222}
   - component: {fileID: 4196639549741338717}
-  - component: {fileID: 5242818479808940851}
+  - component: {fileID: 3813537616925870652}
   m_Layer: 5
   m_Name: NextLevel
   m_TagString: Untagged
@@ -346,7 +346,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &5242818479808940851
+--- !u!114 &3813537616925870652
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -355,7 +355,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3980576782161996619}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 250638f90c974676be3785e66e93c41f, type: 3}
+  m_Script: {fileID: 11500000, guid: bb9a3e2e05d24644991f013d99ad2366, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   levelText: {fileID: 3386495144893653363}

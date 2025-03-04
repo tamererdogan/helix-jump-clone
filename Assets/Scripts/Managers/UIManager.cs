@@ -1,49 +1,57 @@
-using Controllers;
 using Enums;
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace Managers
 {
-    [RequireComponent(typeof(CoreUIController))]
     public class UIManager : MonoBehaviour
     {
-        private CoreUIController _coreUIController;
-
-        private void Awake()
-        {
-            _coreUIController = GetComponent<CoreUIController>();
-        }
+        [SerializeField]
+        private List<Transform> layers;
 
         private void Start()
         {
-            _coreUIController.OpenPanel(UIPanels.Progress, 0);
-            _coreUIController.OpenPanel(UIPanels.TapToPlay, 2);
+            OpenPanel(UIPanel.Progress, 0);
+            OpenPanel(UIPanel.TapToPlay, 2);
         }
 
-        private void OnEnable()
+        private void OpenPanel(UIPanel uiPanel, byte layerIndex)
         {
-            GameManager.OnGameStateChanged += OnGameStateChanged;
+            ClosePanel(layerIndex);
+            Instantiate(Resources.Load<GameObject>($"Prefabs/UI/{uiPanel}"), layers[layerIndex]);
         }
 
-        private void OnGameStateChanged(GameStates before, GameStates current)
+        private void ClosePanel(byte layerIndex)
         {
-            switch (current)
+            var childCount = layers[layerIndex].childCount;
+            for (int i = 0; i < childCount; i++)
+                Destroy(layers[layerIndex].GetChild(i).gameObject);
+        }
+
+        private void ShowStateSpecificUIPanel(GameState state)
+        {
+            switch (state)
             {
-                case GameStates.Running:
-                    _coreUIController.ClosePanel(2);
+                case GameState.Running:
+                    ClosePanel(2);
                     break;
-                case GameStates.Failed:
-                    _coreUIController.OpenPanel(UIPanels.Replay, 2);
+                case GameState.Failed:
+                    OpenPanel(UIPanel.Replay, 2);
                     break;
-                case GameStates.Finished:
-                    _coreUIController.OpenPanel(UIPanels.NextLevel, 2);
+                case GameState.Finished:
+                    OpenPanel(UIPanel.NextLevel, 2);
                     break;
             }
         }
 
+        private void OnEnable()
+        {
+            GameManager.OnGameStateChanged += ShowStateSpecificUIPanel;
+        }
+
         private void OnDisable()
         {
-            GameManager.OnGameStateChanged -= OnGameStateChanged;
+            GameManager.OnGameStateChanged -= ShowStateSpecificUIPanel;
         }
     }
 }

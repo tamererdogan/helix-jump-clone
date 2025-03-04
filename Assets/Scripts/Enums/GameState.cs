@@ -1,6 +1,6 @@
 ﻿namespace Enums
 {
-    public enum GameStates
+    public enum GameState
     {
         PreGame,
         Running,

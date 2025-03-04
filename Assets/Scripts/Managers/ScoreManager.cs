@@ -1,5 +1,6 @@
-﻿using Components.UI;
-using Events;
+﻿using Controllers;
+using Controllers.UI;
+using Structs;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -10,32 +11,14 @@ namespace Managers
         public static UnityAction<int> OnScoreUpdated = delegate { };
 
         private int _score;
-        private int _prevScore;
+        private int _previousScore;
+        private int _levelMultiplier;
+        private int _safeModeMultiplier;
+        private bool _isSafeModeOpen;
 
         private void Awake()
         {
-            _score = _prevScore = PlayerPrefs.GetInt("score", 0);
-        }
-
-        private void OnEnable()
-        {
-            PlayerHitEvent.OnPlayerTrigger += OnPlayerTrigger;
-            PlayerManager.OnPlayerCollisionObstacle += OnPlayerCollisionObstacle;
-            ReplayComponent.OnUpdateRequested += NotifyScoreUpdated;
-            ProgressComponent.OnUpdateRequested += NotifyScoreUpdated;
-            LevelManager.OnLevelChanged += OnLevelChanged;
-            LevelManager.OnLevelReplayed += OnLevelReplayed;
-        }
-
-        private void OnLevelReplayed()
-        {
-            _score = _prevScore;
-        }
-
-        private void OnLevelChanged(int levelIndex)
-        {
-            _prevScore = _score;
-            PlayerPrefs.SetInt("score", _score);
+            _score = _previousScore = PlayerPrefs.GetInt("score", 0);
         }
 
         private void NotifyScoreUpdated()
@@ -43,30 +26,61 @@ namespace Managers
             OnScoreUpdated.Invoke(_score);
         }
 
-        private void OnPlayerCollisionObstacle(Collision other, bool isSafeMode)
+        private void SaveMultipliers(Level currentLevel)
         {
-            if (isSafeMode) IncScore();
+            _levelMultiplier = currentLevel.levelMultiplier;
+            _safeModeMultiplier = currentLevel.safeModeMultiplier;
         }
 
-        private void OnPlayerTrigger(Transform player, Collider other)
+        private void IncreaseScore(Transform other)
         {
-            IncScore();
-        }
-
-        private void OnDisable()
-        {
-            PlayerHitEvent.OnPlayerTrigger -= OnPlayerTrigger;
-            PlayerManager.OnPlayerCollisionObstacle -= OnPlayerCollisionObstacle;
-            ReplayComponent.OnUpdateRequested -= NotifyScoreUpdated;
-            ProgressComponent.OnUpdateRequested -= NotifyScoreUpdated;
-            LevelManager.OnLevelChanged -= OnLevelChanged;
-            LevelManager.OnLevelReplayed -= OnLevelReplayed;
-        }
-
-        private void IncScore()
-        {
-            _score += 10;
+            _score += 1 * _levelMultiplier * (_isSafeModeOpen ? _safeModeMultiplier : 1);
             OnScoreUpdated.Invoke(_score);
+        }
+
+        private void RestorePrevScore()
+        {
+            _score = _previousScore;
+        }
+
+        private void SaveScore(int levelIndex)
+        {
+            _previousScore = _score;
+            PlayerPrefs.SetInt("score", _score);
+        }
+
+        private void OpenSafeMode()
+        {
+            _isSafeModeOpen = true;
+        }
+
+        private void CloseSafeMode()
+        {
+            _isSafeModeOpen = false;
+        }
+
+        private void OnEnable()
+        {
+            LevelManager.OnLevelChanged += SaveScore;
+            LevelManager.OnLevelReplayed += RestorePrevScore;
+            LevelManager.OnLevelLoaded += SaveMultipliers;
+            PlayerController.OnPlayerPassed += IncreaseScore;
+            PlayerController.OnSafeModeEnter += OpenSafeMode;
+            PlayerController.OnSafeModeExit += CloseSafeMode;
+            ReplayPanelController.OnUpdateRequested += NotifyScoreUpdated;
+            ProgressPanelController.OnUpdateRequested += NotifyScoreUpdated;
+        }
+
+       private void OnDisable()
+        {
+            LevelManager.OnLevelChanged -= SaveScore;
+            LevelManager.OnLevelReplayed -= RestorePrevScore;
+            LevelManager.OnLevelLoaded -= SaveMultipliers;
+            PlayerController.OnPlayerPassed -= IncreaseScore;
+            PlayerController.OnSafeModeEnter -= OpenSafeMode;
+            PlayerController.OnSafeModeExit -= CloseSafeMode;
+            ReplayPanelController.OnUpdateRequested -= NotifyScoreUpdated;
+            ProgressPanelController.OnUpdateRequested -= NotifyScoreUpdated;
         }
     }
 }

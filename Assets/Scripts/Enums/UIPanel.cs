@@ -1,6 +1,6 @@
 ﻿namespace Enums
 {
-    public enum UIPanels
+    public enum UIPanel
     {
         TapToPlay, Replay, NextLevel, Progress
     }

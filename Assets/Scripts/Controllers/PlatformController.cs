@@ -1,22 +1,25 @@
-﻿using UnityEngine;
+﻿using Managers;
+using UnityEngine;
 
 namespace Controllers
 {
     public class PlatformController : MonoBehaviour
-    {        
-        [SerializeField]
-        private GameObject levelHolder;
-        [SerializeField]
-        private float rotateSpeed;
+    {
+        private float _rotateSpeed = 18; //TODO: SO'dan al bunu
 
-        public void RotatePlatform(float value)
+        private void RotatePlatform(float value)
         {
-            levelHolder.transform.Rotate(Vector3.up, -value * rotateSpeed * Time.deltaTime);
+            transform.Rotate(Vector3.up, -value * _rotateSpeed * Time.deltaTime);
         }
 
-        public void HideDisc(Transform disc)
+        private void OnEnable()
         {
-            disc.gameObject.SetActive(false);
+            InputManager.OnInputTaken += RotatePlatform;
+        }
+
+        private void OnDisable()
+        {
+            InputManager.OnInputTaken -= RotatePlatform;
         }
     }
 }
