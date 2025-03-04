@@ -28,6 +28,12 @@ namespace Controllers
             _playerData = Resources.Load<PlayerData>("Data/ScriptableObjects/Settings/PlayerData");
         }
 
+        private void FixedUpdate()
+        {
+            if (_rigidbody.velocity.magnitude > _playerData.playerMaxSpeed)
+                _rigidbody.velocity = _rigidbody.velocity.normalized * _playerData.playerMaxSpeed;
+        }
+
         private void Jump()
         {
             _rigidbody.velocity = Vector3.zero;

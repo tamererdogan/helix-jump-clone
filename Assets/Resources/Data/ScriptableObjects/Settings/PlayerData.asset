@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   safeModeThreshold: 2
   jumpForce: 3
+  playerMaxSpeed: 2.5

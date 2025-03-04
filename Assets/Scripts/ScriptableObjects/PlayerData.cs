@@ -7,5 +7,6 @@ namespace ScriptableObjects
     {
         public int safeModeThreshold;
         public float jumpForce;
+        public float playerMaxSpeed ;
     }
 }

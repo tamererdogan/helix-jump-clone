@@ -147,8 +147,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 455f4d0c1b084caf9c7352d9faff8c18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpForce: 3
-  raycastDistance: 0.25
 --- !u!96 &7281737897624858755
 TrailRenderer:
   serializedVersion: 3
@@ -191,7 +189,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 0.1
+  m_Time: 0.2
   m_PreviewTimeScale: 1
   m_Parameters:
     serializedVersion: 3
