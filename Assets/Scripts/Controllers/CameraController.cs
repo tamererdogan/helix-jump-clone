@@ -25,21 +25,14 @@ namespace Controllers
             _target = playerTransform;
         }
 
-        private void RemoveTarget()
-        {
-            _target = null;
-        }
-
         private void OnEnable()
         {
             PlayerManager.OnPlayerCreated += SetTarget;
-            PlayerManager.OnPlayerRemoved += RemoveTarget;
         }
 
         private void OnDisable()
         {
             PlayerManager.OnPlayerCreated -= SetTarget;
-            PlayerManager.OnPlayerRemoved -= RemoveTarget;
         }
     }
 }
