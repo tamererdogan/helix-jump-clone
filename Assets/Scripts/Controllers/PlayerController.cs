@@ -1,5 +1,6 @@
 ﻿using Abstracts;
 using Enums;
+using ScriptableObjects;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -13,27 +14,24 @@ namespace Controllers
         public static UnityAction OnSafeModeEnter = delegate { };
         public static UnityAction OnSafeModeExit = delegate { };
 
-        private const int SafeModeThreshold = 2; //TODO:SO'dan al
-        
-        [SerializeField]
-        private float jumpForce;
-        [SerializeField]
-        private float raycastDistance;
+        private const float RaycastDistance = 0.2f;
 
         private Rigidbody _rigidbody;
         private TrailRenderer _trailRenderer;
         private int _sequentialPassedDiscCount;
+        private PlayerData _playerData;
 
         private void Awake()
         {
             _rigidbody = GetComponent<Rigidbody>();
             _trailRenderer = GetComponent<TrailRenderer>();
+            _playerData = Resources.Load<PlayerData>("Data/ScriptableObjects/Settings/PlayerData");
         }
 
         private void Jump()
         {
             _rigidbody.velocity = Vector3.zero;
-            _rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            _rigidbody.AddForce(Vector3.up * _playerData.jumpForce, ForceMode.Impulse);
         }
 
         private void SetTrailState(bool isOpen)
@@ -43,7 +41,7 @@ namespace Controllers
 
         private void OnCollisionEnter(Collision other)
         {
-            var isHit = Physics.Raycast(transform.position, -transform.up * raycastDistance, out var hitInfo);
+            var isHit = Physics.Raycast(transform.position, -transform.up * RaycastDistance, out var hitInfo);
             var hitTransform = isHit ? hitInfo.transform : other.transform;
             hitTransform.TryGetComponent(out IGround ground);
             if (ground == null) return;
@@ -57,7 +55,7 @@ namespace Controllers
                     OnPlayerFinished.Invoke();
                     break;
                 case GroundType.Obstacle:
-                    if (_sequentialPassedDiscCount > SafeModeThreshold) OnPlayerPassed.Invoke(hitTransform);
+                    if (_sequentialPassedDiscCount > _playerData.safeModeThreshold) OnPlayerPassed.Invoke(hitTransform);
                     else OnPlayerFailed.Invoke();
                     break;
             }
@@ -71,7 +69,7 @@ namespace Controllers
         {
             OnPlayerPassed.Invoke(other.transform);
             _sequentialPassedDiscCount++;
-            if (_sequentialPassedDiscCount > SafeModeThreshold)
+            if (_sequentialPassedDiscCount > _playerData.safeModeThreshold)
             {
                 OnSafeModeEnter.Invoke();
                 SetTrailState(true);

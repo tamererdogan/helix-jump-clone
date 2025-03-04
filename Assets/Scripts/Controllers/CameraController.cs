@@ -1,21 +1,23 @@
 using Managers;
+using ScriptableObjects;
 using UnityEngine;
 
 namespace Controllers
 {
     public class CameraController : MonoBehaviour
     {
-        [SerializeField] 
-        private Vector3 offset;
-        [SerializeField] 
-        private float speed;
-
         private Transform _target;
+        private CameraData _cameraData;
+
+        private void Awake()
+        {
+            _cameraData = Resources.Load<CameraData>("Data/ScriptableObjects/Settings/CameraData");
+        }
 
         void LateUpdate()
         {
-            var targetPosition = _target.position + offset;
-            transform.position = Vector3.Lerp(transform.position, targetPosition, speed * Time.deltaTime);
+            var targetPosition = _target.position + _cameraData.offset;
+            transform.position = Vector3.Lerp(transform.position, targetPosition, _cameraData.speed * Time.deltaTime);
         }
 
         private void SetTarget(Transform playerTransform)
