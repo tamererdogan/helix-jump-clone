@@ -21,17 +21,24 @@ namespace Controllers
         private float raycastDistance;
 
         private Rigidbody _rigidbody;
+        private TrailRenderer _trailRenderer;
         private int _sequentialPassedDiscCount;
 
         private void Awake()
         {
             _rigidbody = GetComponent<Rigidbody>();
+            _trailRenderer = GetComponent<TrailRenderer>();
         }
 
         private void Jump()
         {
             _rigidbody.velocity = Vector3.zero;
             _rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        }
+
+        private void SetTrailState(bool isOpen)
+        {
+            _trailRenderer.enabled = isOpen;
         }
 
         private void OnCollisionEnter(Collision other)
@@ -57,13 +64,18 @@ namespace Controllers
 
             _sequentialPassedDiscCount = 0;
             OnSafeModeExit.Invoke();
+            SetTrailState(false);
         }
 
         private void OnTriggerEnter(Collider other)
         {
             OnPlayerPassed.Invoke(other.transform);
             _sequentialPassedDiscCount++;
-            if (_sequentialPassedDiscCount > SafeModeThreshold) OnSafeModeEnter.Invoke();
+            if (_sequentialPassedDiscCount > SafeModeThreshold)
+            {
+                OnSafeModeEnter.Invoke();
+                SetTrailState(true);
+            }
         }
     }
 }
